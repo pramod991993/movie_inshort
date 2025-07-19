@@ -43,7 +43,8 @@ class MovieRepository {
   }
 
   Future<List<Movie>> search(String query) async {
-    final result = await apiService.searchMovies( query);
+    final result = await apiService.searchMovies(query);
+    print(result.results.toString());
     return result.results;
     // final List movies = result.results;
     // return movies.map((e) => Movie.fromJson(e)).toList();

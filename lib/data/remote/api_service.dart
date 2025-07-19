@@ -10,14 +10,15 @@ part 'api_service.g.dart';
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
-  @GET("/trending/movie/day?language=en-US")
-  Future<MovieResponse> getTrending();
+  @GET('/trending/movie/day')
+  Future<MovieResponse> getTrending({
+    @Query('language') String language = 'en-US',
+    });
 
   @GET("/movie/now_playing")
   Future<MovieResponse> getNowPlaying();
 
   @GET("/search/movie")
   Future<MovieResponse> searchMovies(
-    @Query("query") String query,
-  );
+    @Query("query") String query,);
 }

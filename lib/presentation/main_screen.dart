@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:project_inshort/core/constants.dart';
+import 'package:project_inshort/data/remote/dio_client.dart';
 import '../data/models/movie.dart';
 import '../data/remote/api_service.dart';
 import '../data/repository/movie_repository.dart';
@@ -26,10 +28,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    final dio = Dio();
-    dio.options.headers['Authorization'] =
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMzAzZDM2MTBhNGE0Y2FmN2UyMGMwMjgzODAwOWVkYyIsIm5iZiI6MTc1MjY2NDk3NS45ODcsInN1YiI6IjY4Nzc4YjhmNjJkYjIyZGYwNDc3OWEwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Uda9p_MLy1aYZtOnGRTERCYsWK6O8aWWkc8N9vV3LGo';
-    dio.options.headers['accept'] = 'application/json';
+    // final dio = Dio();
+    // dio.options.headers['Authorization'] =
+    //     'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMzAzZDM2MTBhNGE0Y2FmN2UyMGMwMjgzODAwOWVkYyIsIm5iZiI6MTc1MjY2NDk3NS45ODcsInN1YiI6IjY4Nzc4YjhmNjJkYjIyZGYwNDc3OWEwOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Uda9p_MLy1aYZtOnGRTERCYsWK6O8aWWkc8N9vV3LGo';
+    // dio.options.headers['accept'] = 'application/json';
+    // dio.options.queryParameters['api_key'] = apiKey;
+    final dio = createDio();
     final apiService = ApiService(dio);
     repository = MovieRepository(apiService);
 
