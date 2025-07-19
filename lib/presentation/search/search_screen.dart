@@ -61,10 +61,18 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                hintText: 'Search movies...',
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surfaceVariant,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  hintText: 'Search movies...',
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.search),
+                ),
               ),
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inshort/data/repository/movie_repository.dart';
 import '../../data/models/movie.dart';
@@ -59,7 +60,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               // if (movie.posterPath != null)
               //   Image.network('https://image.tmdb.org/t/p/w500${movie.posterPath!}'),
               if (widget.movie.posterPath != null)
-                Image.network('https://image.tmdb.org/t/p/w500${widget.movie.posterPath!}'),
+              //   Image.network('https://image.tmdb.org/t/p/w500${widget.movie.posterPath!}'),
+                CachedNetworkImage(
+                        imageUrl: 'https://image.tmdb.org/t/p/w500${widget.movie.posterPath!}',
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                // Image.network('https://image.tmdb.org/t/p/w500${widget.movie.posterPath!}'),
               const SizedBox(height: 16),
               // Text(movie.overview),
               Text(widget.movie.overview),
