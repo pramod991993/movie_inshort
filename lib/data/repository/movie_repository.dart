@@ -9,17 +9,37 @@ class MovieRepository {
   MovieRepository(this.apiService);
 
   Future<List<Movie>> getTrending() async {
-    final result = await apiService.getTrending();
-    // print(result);
-    return result.results;
-    // return movies.map((e) => Movie.fromJson(e)).toList();
+    // final result = await apiService.getTrending();
+    // return result.results;
+    try {
+      final result = await apiService.getTrending();
+      final box = Hive.box('cache');
+      box.put('trending', result.results.map((e) => e.toJson()).toList());
+      return result.results;
+    } catch (e) {
+      final box = Hive.box('cache');
+      final cached = box.get('trending', defaultValue: []) as List;
+      return cached
+          .map((e) => Movie.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    }
   }
 
   Future<List<Movie>> getNowPlaying() async {
-    final result = await apiService.getNowPlaying();
-    // final List movies = result.results;
-    return result.results;
-    // return movies.map((e) => Movie.fromJson(e)).toList();
+    // final result = await apiService.getNowPlaying();
+    // return result.results;
+    try {
+      final result = await apiService.getNowPlaying();
+      final box = Hive.box('cache');
+      box.put('nowPlaying', result.results.map((e) => e.toJson()).toList());
+      return result.results;
+    } catch (e) {
+      final box = Hive.box('cache');
+      final cached = box.get('nowPlaying', defaultValue: []) as List;
+      return cached
+          .map((e) => Movie.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    }
   }
 
   Future<List<Movie>> search(String query) async {
